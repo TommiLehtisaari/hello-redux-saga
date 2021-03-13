@@ -1,3 +1,4 @@
+import { Global } from "@emotion/react";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -9,6 +10,21 @@ import { store } from "./store";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <Global
+        styles={[
+          {
+            html: {
+              height: "100%",
+            },
+            body: {
+              width: "100%",
+              height: "100%",
+              padding: 0,
+              margin: 0,
+            },
+          },
+        ]}
+      />
       <App />
     </Provider>
   </React.StrictMode>,
