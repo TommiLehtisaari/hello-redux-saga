@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import React, { FunctionComponent, useState } from "react";
 
 import { AppButton } from "../../design/atoms/Button";
-import { useAppDispatch } from "../../hooks";
+// import { useAppDispatch } from "../../hooks";
 
-import { add } from "./booksSlice";
+// import { addBook } from "./booksSlice";
 
 const Form = styled.form({
   display: "flex",
@@ -24,7 +24,7 @@ const Label = styled.div({
 });
 
 export const BookForm: FunctionComponent = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
 
@@ -34,7 +34,7 @@ export const BookForm: FunctionComponent = () => {
     event.preventDefault();
 
     if (title.length > 3 && author.length > 3) {
-      dispatch(add({ title, author }));
+      alert("ADDING IS DISABLED FOR THE TIME");
     }
 
     setTitle("");

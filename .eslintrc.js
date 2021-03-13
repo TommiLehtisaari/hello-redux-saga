@@ -18,6 +18,7 @@ module.exports = {
     "react/jsx-curly-newline": 0,
     "func-style": ["error", "expression"],
     "no-nested-ternary": "error",
+    "no-console": ["error", { allow: ["warn", "error"] }],
     curly: ["error", "all"],
     "arrow-body-style": ["error", "as-needed"],
     "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
