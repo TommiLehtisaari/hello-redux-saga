@@ -1,26 +1,17 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 
 import { Card } from "../../design/molecules/Card";
 import { useAppSelector } from "../../hooks";
 
-import { BookForm } from "./BookForm";
+const Container = styled(motion.div)({ width: 500 });
 
-const Title = styled.h2({
-  fontSize: 26,
-  fontWeight: "bold",
-});
-
-const CardsRow = styled(motion.div)({
-  width: 500,
-});
-
-export const BooksList: FunctionComponent = () => {
-  const { loading, books, error } = useAppSelector((state) => state.books);
+export const AuthorPage: FunctionComponent = () => {
+  const { loading, authors, error } = useAppSelector((state) => state.authors);
 
   return (
-    <CardsRow
+    <Container
       initial={{
         opacity: 0,
         x: -100,
@@ -35,15 +26,10 @@ export const BooksList: FunctionComponent = () => {
         scaleY: 0.5,
       }}
     >
-      <Title>List of the books</Title>
-      {books.map((book, index) => (
-        <Card
-          key={index}
-          title={book.title}
-          subtitle={`by ${book.author.name}`}
-        />
+      {authors.map((author, index) => (
+        <Card key={index} title={author.name} subtitle={`0 books`} />
       ))}
-      {books.length === 0 && (
+      {authors.length === 0 && (
         <div style={{ color: "#777" }}>The list of books is empty</div>
       )}
       {loading && <div style={{ color: "#777", padding: 32 }}>loading...</div>}
@@ -53,7 +39,6 @@ export const BooksList: FunctionComponent = () => {
         </div>
       )}
       <div style={{ height: 64 }}></div>
-      <BookForm />
-    </CardsRow>
+    </Container>
   );
 };

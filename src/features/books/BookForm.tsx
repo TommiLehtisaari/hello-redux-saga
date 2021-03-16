@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 
 import { AppButton } from "../../design/atoms/Button";
 import { useAppDispatch } from "../../hooks";
-import { addBook } from "../../state/ducks/booksSlice";
+import { addBook, createBook } from "../../state/ducks/booksSlice";
 
 export const BookForm: FunctionComponent = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +12,13 @@ export const BookForm: FunctionComponent = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
+
+    dispatch(
+      createBook({
+        title: faker.commerce.productName(),
+        authorId: faker.name.findName(),
+      }),
+    );
 
     dispatch(
       addBook({

@@ -1,12 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Book } from "../../model";
+import { BookInput } from "../../model";
 import { APIBook } from "../../services/bookService";
 import { RootState } from "../../store";
 
+type StateBook = {
+  id: string;
+  title: string;
+  author: {
+    id: string;
+    name: string;
+  };
+};
+
 // Define a type for the slice state
 type BooksState = {
-  books: Book[];
+  books: StateBook[];
   loading: boolean;
   error: undefined | string;
 };
@@ -27,7 +36,7 @@ export const bookSlice = createSlice({
       state.loading = true;
     },
     fetchBooksSuccess: (state, action: PayloadAction<APIBook[]>) => {
-      state.books = action.payload;
+      state.books = action.payload.map((b) => b);
       state.error = undefined;
       state.loading = false;
     },
@@ -35,7 +44,11 @@ export const bookSlice = createSlice({
       state.error = "Fetch failed";
       state.loading = false;
     },
-    addBook: (state, action: PayloadAction<Book>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    createBook: (state, action: PayloadAction<BookInput>) => {
+      state.loading = true;
+    },
+    addBook: (state, action: PayloadAction<StateBook>) => {
       state.books = [...state.books, action.payload];
     },
     setBookLoadingState: (state, action: PayloadAction<boolean>) => {
@@ -46,6 +59,7 @@ export const bookSlice = createSlice({
 
 export const {
   addBook,
+  createBook,
   fetchBooks,
   setBookLoadingState,
   fetchBooksSuccess,
@@ -53,6 +67,6 @@ export const {
 } = bookSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectBooks = (state: RootState): Book[] => state.books.books;
+export const selectBooks = (state: RootState): StateBook[] => state.books.books;
 
 export const booksReducer = bookSlice.reducer;

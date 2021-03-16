@@ -6,12 +6,12 @@ const baseURL = "http://localhost:4000";
 
 export type APIBook = {
   id: string;
+  title: string;
   authorId: string;
   author: {
     id: string;
     name: string;
   };
-  title: string;
 };
 
 export type BookResponse = {

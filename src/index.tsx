@@ -15,6 +15,7 @@ ReactDOM.render(
           {
             html: {
               height: "100%",
+              fontFamily: "Kumbh Sans, sans-serif",
             },
             body: {
               width: "100%",
