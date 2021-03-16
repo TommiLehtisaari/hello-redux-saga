@@ -5,11 +5,11 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 import { colors } from "./design";
 import { Navigation } from "./design/organism/Navigation";
-import { AuthorPage } from "./features/authors";
-import { BooksList } from "./features/books/BooksList";
-import { useAppDispatch } from "./hooks";
+import { AuthorPage } from "./pages/authors";
+import { BooksList } from "./pages/books/BooksList";
 import { fetchAuthors } from "./state/ducks/authorSlice";
 import { fetchBooks } from "./state/ducks/booksSlice";
+import { useAppDispatch } from "./state/hooks";
 
 const Background = styled.div({
   display: "flex",

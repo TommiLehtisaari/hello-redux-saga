@@ -2,8 +2,8 @@ import faker from "faker";
 import React, { FunctionComponent } from "react";
 
 import { AppButton } from "../../design/atoms/Button";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { createBook } from "../../state/ducks/booksSlice";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
 
 export const BookForm: FunctionComponent = () => {
   const { authors } = useAppSelector((state) => state.authors);

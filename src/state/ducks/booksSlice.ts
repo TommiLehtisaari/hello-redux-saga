@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { APIBook } from "../../services/bookService";
-import { RootState } from "../../store";
+import { RootState } from "../store";
 
 type StateBook = {
   id: string;

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 
-import { authorsReducer } from "./state/ducks/authorSlice";
-import { booksReducer } from "./state/ducks/booksSlice";
-import { rootSaga } from "./state/sagas";
+import { authorsReducer } from "./ducks/authorSlice";
+import { booksReducer } from "./ducks/booksSlice";
+import { rootSaga } from "./sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 
