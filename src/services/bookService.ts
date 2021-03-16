@@ -29,3 +29,34 @@ export const getBooks = async (): Promise<Try<BookResponse>> => {
     return failure(e);
   }
 };
+
+export type APICreateBook = {
+  id: string;
+  authorId: string;
+  name: string;
+};
+
+export type CreateBookResponse = {
+  data: APICreateBook;
+};
+
+type APICreateBookInput = {
+  title: string;
+  authorId: string;
+};
+
+export const createBook = async ({
+  title,
+  authorId,
+}: APICreateBookInput): Promise<Try<CreateBookResponse>> => {
+  try {
+    const response = await axios.post<CreateBookResponse>(`${baseURL}/books`, {
+      title,
+      authorId,
+    });
+
+    return success(response.data);
+  } catch (e) {
+    return failure(e);
+  }
+};

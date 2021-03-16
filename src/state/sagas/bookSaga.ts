@@ -2,10 +2,20 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { call, put } from "redux-saga/effects";
 
-import { BookInput } from "../../model";
-import { APIBook, getBooks } from "../../services/bookService";
+import {
+  APIBook,
+  getBooks,
+  createBook,
+  APICreateBook,
+} from "../../services/bookService";
 import { Try } from "../../util/types";
-import { fetchBooksFailure, fetchBooksSuccess } from "../ducks/booksSlice";
+import {
+  BookInput,
+  createBookFailed,
+  createBookSuccess,
+  fetchBooksFailure,
+  fetchBooksSuccess,
+} from "../ducks/booksSlice";
 
 export const fetchBooksSaga = function* (): Generator {
   const response = yield call(getBooks);
@@ -21,6 +31,19 @@ export const fetchBooksSaga = function* (): Generator {
 export const createBookSaga = function* (
   action: PayloadAction<BookInput>,
 ): Generator {
-  console.log(action.payload);
-  yield put(fetchBooksFailure());
+  const { title, author } = action.payload;
+  const response = yield call(createBook, { title, authorId: author.id });
+  const createResponse = response as Try<APICreateBook>;
+
+  if (createResponse.success) {
+    yield put(
+      createBookSuccess({
+        id: createResponse.value.id,
+        title,
+        author,
+      }),
+    );
+  } else {
+    yield put(createBookFailed());
+  }
 };

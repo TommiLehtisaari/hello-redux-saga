@@ -1,11 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { BookInput } from "../../model";
 import { APIBook } from "../../services/bookService";
 import { RootState } from "../../store";
 
 type StateBook = {
   id: string;
+  title: string;
+  author: {
+    id: string;
+    name: string;
+  };
+};
+
+export type BookInput = {
   title: string;
   author: {
     id: string;
@@ -48,6 +55,17 @@ export const bookSlice = createSlice({
     createBook: (state, action: PayloadAction<BookInput>) => {
       state.loading = true;
     },
+    createBookSuccess: (state, action: PayloadAction<StateBook>) => {
+      const books = state.books.map((b) => b);
+      books.push(action.payload);
+      state.books = books;
+      state.loading = false;
+      state.error = undefined;
+    },
+    createBookFailed: (state) => {
+      state.error = "Book creation failed";
+      state.loading = false;
+    },
     addBook: (state, action: PayloadAction<StateBook>) => {
       state.books = [...state.books, action.payload];
     },
@@ -64,6 +82,8 @@ export const {
   setBookLoadingState,
   fetchBooksSuccess,
   fetchBooksFailure,
+  createBookSuccess,
+  createBookFailed,
 } = bookSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

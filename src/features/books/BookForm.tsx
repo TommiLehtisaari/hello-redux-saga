@@ -2,10 +2,11 @@ import faker from "faker";
 import React, { FunctionComponent } from "react";
 
 import { AppButton } from "../../design/atoms/Button";
-import { useAppDispatch } from "../../hooks";
-import { addBook, createBook } from "../../state/ducks/booksSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { createBook } from "../../state/ducks/booksSlice";
 
 export const BookForm: FunctionComponent = () => {
+  const { authors } = useAppSelector((state) => state.authors);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (
@@ -13,20 +14,18 @@ export const BookForm: FunctionComponent = () => {
   ) => {
     event.preventDefault();
 
+    if (authors.length === 0) {
+      return;
+    }
+
+    const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
+
     dispatch(
       createBook({
         title: faker.commerce.productName(),
-        authorId: faker.name.findName(),
-      }),
-    );
-
-    dispatch(
-      addBook({
-        id: faker.random.uuid(),
-        title: faker.commerce.productName(),
         author: {
-          id: faker.random.uuid(),
-          name: faker.name.findName(),
+          id: randomAuthor.id,
+          name: randomAuthor.name,
         },
       }),
     );
