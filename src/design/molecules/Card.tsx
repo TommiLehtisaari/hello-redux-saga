@@ -34,10 +34,16 @@ const SubTitle = styled.div({
 type Props = {
   title: string;
   subtitle: string;
+  onClick?: () => void;
 };
 
-export const Card: FunctionComponent<Props> = ({ title, subtitle }) => (
+export const Card: FunctionComponent<Props> = ({
+  title,
+  subtitle,
+  onClick,
+}) => (
   <Container
+    key="card"
     layout
     initial={{
       opacity: 0,
@@ -62,6 +68,7 @@ export const Card: FunctionComponent<Props> = ({ title, subtitle }) => (
       opacity: 0.8,
       y: -5,
     }}
+    onClick={onClick}
   >
     <Title>{title}</Title>
     <SubTitle>{subtitle}</SubTitle>

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { APIBook } from "../../services/bookService";
 import { RootState } from "../store";
 
-type StateBook = {
+export type StateBook = {
   id: string;
   title: string;
   author: {
@@ -25,6 +25,7 @@ type BooksState = {
   books: StateBook[];
   loading: boolean;
   error: undefined | string;
+  activeBook: StateBook | undefined;
 };
 
 // Define the initial state using that type
@@ -32,6 +33,7 @@ const initialState: BooksState = {
   books: [],
   loading: false,
   error: undefined,
+  activeBook: undefined,
 };
 
 export const bookSlice = createSlice({
@@ -39,6 +41,9 @@ export const bookSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
+    setActiveBook: (state, action: PayloadAction<StateBook | undefined>) => {
+      state.activeBook = action.payload;
+    },
     fetchBooks: (state) => {
       state.loading = true;
     },
@@ -80,6 +85,7 @@ export const {
   createBook,
   fetchBooks,
   setBookLoadingState,
+  setActiveBook,
   fetchBooksSuccess,
   fetchBooksFailure,
   createBookSuccess,
